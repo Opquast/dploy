@@ -10,7 +10,7 @@ Uploads the latest changes by comparing the version on your server with your git
 Install DPLOY and it's dependancies globally by running:
 
 ```
-npm install dploy -g
+npm install dploy https://github.com/Opquast/dploy.git#1.2.1-opquast2 -g
 ```
 
 ## Help
