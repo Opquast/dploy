@@ -276,7 +276,17 @@ module.exports = class Deploy
 				for detail in files
 					# Check if the file was deleted, modified or added
 					data = detail.split "\t"
-					if data.length > 1
+					if data.length == 2
+						# If you set a local path, we need to replace the remote name to match the remote path
+						remoteName = if @config.path.local then data[1].split(@config.path.local).join("") else data[1]
+
+						# The file was deleted
+						if data[0] == "D"
+							@toDelete.push name:data[1], remote:remoteName if @canDelete data[1]
+						# Everything else
+						else
+							@toUpload.push name:data[1], remote:remoteName if @canUpload data[1]
+					else if data.length == 3
 						# If you set a local path, we need to replace the remote name to match the remote path
 						remoteName = if @config.path.local then data[1].split(@config.path.local).join("") else data[1]
 						remoteRename = if @config.path.local then data[2].split(@config.path.local).join("") else data[2]
@@ -290,12 +300,8 @@ module.exports = class Deploy
 						if data[0].match renamePattern
 							@toDelete.push name:data[1], remote:remoteName if @canDelete data[1]
 							@toUpload.push name:data[2], remote:remoteRename if @canUpload data[2]
-						# The file was deleted
-						else if data[0] == "D"
-							@toDelete.push name:data[1], remote:remoteName if @canDelete data[1]
-						# Everything else
 						else
-							@toUpload.push name:data[1], remote:remoteName if @canUpload data[1]
+							console.log "This case is not correclty handled : #{detail}".bold.red
 
 				@includeExtraFiles()
 
