@@ -1,7 +1,7 @@
 {
   "name": "dploy",
-  "version": "1.2.0",
-  "author": "Lucas Motta <http://lucasmotta.com>",
+  "version": "1.2.1-opquast",
+  "author": "Lucas Motta, maintained by Mickael Hoareau",
   "description": "Command line tool to deploy websites using FTP/SFTP and git.",
   "keywords": [
     "ftp",
@@ -11,7 +11,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/LeanMeanFightingMachine/dploy"
+    "url": "https://github.com/opquast/dploy"
   },
   "main": "./lib/dploy",
   "bin": {
